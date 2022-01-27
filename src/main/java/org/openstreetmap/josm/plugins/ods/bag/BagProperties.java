@@ -2,7 +2,6 @@ package org.openstreetmap.josm.plugins.ods.bag;
 
 import org.openstreetmap.josm.data.preferences.IntegerProperty;
 import org.openstreetmap.josm.data.preferences.StringProperty;
-import org.openstreetmap.josm.tools.I18n;
 
 public final class BagProperties {
 

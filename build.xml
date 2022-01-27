@@ -1,58 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="ods-bag"  default="dist" basedir="." 
-  xmlns:artifact="antlib:org.apache.maven.artifact.ant">
-  <path id="maven-ant-tasks.classpath" path="lib/maven-ant-tasks-2.1.3.jar" />
-  <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
-
+<project xmlns:artifact="antlib:org.apache.maven.artifact.ant" name="ods-bag" default="dist" basedir=".">
+  <path id="maven-ant-tasks.classpath" path="tools/maven-ant-tasks-2.1.3.jar"/>
+  <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath"/>
   <tstamp>
-    <format property="plugin.date" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'" />
+    <format property="plugin.date" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'"/>
   </tstamp>
-  <artifact:pom id="mypom" file="pom.xml" />
-
+  <artifact:pom id="mypom" file="pom.xml"/>
   <!-- enter the SVN commit message -->
   <property name="commit.message" value="Commit message"/>
   <!-- enter the *lowest* JOSM version this plugin is currently compatible with -->
-  <property name="plugin.main.version" value="${mypom.properties.josm.version}" />
+  <property name="plugin.main.version" value="${mypom.properties.josm.version}"/>
   <property name="plugin.class" value="org.openstreetmap.josm.plugins.ods.bag.BagImportPlugin"/>
   <property name="plugin.version" value="${mypom.version}"/>
-  <property name="plugin.build.dir" value="build" />
-  <property name="plugin.src.dir" value="src" />
+  <property name="plugin.build.dir" value="build"/>
+  <property name="plugin.src.dir" value="src"/>
   <!-- this is the directory where the plugin jar is copied to -->
-  <property name="maven.target.dir" value="${mypom.build.directory}" />
-  <property name="plugin.dist.dir" value="dist" />
-  <property name="ant.build.javac.target" value="1.8" />
-  <property name="ant.build.javac.source" value="1.8" />
-  <property name="plugin.jar" value="${plugin.dist.dir}/${ant.project.name}.jar" />
+  <property name="maven.target.dir" value="${mypom.build.directory}"/>
+  <property name="plugin.dist.dir" value="dist"/>
+  <property name="ant.build.javac.target" value="1.8"/>
+  <property name="ant.build.javac.source" value="1.8"/>
+  <property name="plugin.jar" value="${plugin.dist.dir}/${ant.project.name}.jar"/>
   <!-- Debugging -->
-  <property name="plugin.debug.build.dir" value="build/debug" />
-  <property name="plugin.debug.dist.dir" value="dist/debug" />
-  <property name="plugin.debug.jar" value="${plugin.debug.dist.dir}/${ant.project.name}.jar" />
+  <property name="plugin.debug.build.dir" value="build/debug"/>
+  <property name="plugin.debug.dist.dir" value="dist/debug"/>
+  <property name="plugin.debug.jar" value="${plugin.debug.dist.dir}/${ant.project.name}.jar"/>
   <!--
     **********************************************************
     ** init - initializes the build
     **********************************************************
     -->
   <target name="init" depends="clean">
-    <mkdir dir="${plugin.build.dir}" />
+    <mkdir dir="${plugin.build.dir}"/>
     <mkdir dir="${plugin.debug.build.dir}"/>
-     <artifact:dependencies filesetId="dependency.fileset">
-          <dependency groupId="org.jdom" artifactId="jdom2" version="2.0.4"/>
-      </artifact:dependencies>
+    <artifact:dependencies filesetId="dependency.fileset">
+      <dependency groupId="org.jdom" artifactId="jdom2" version="2.0.4"/>
+    </artifact:dependencies>
   </target>
-
   <!--
     **********************************************************
     ** dist - creates the jar
     **********************************************************
     -->
   <target name="dist" depends="init">
-    <echo message="creating ${ant.project.name}.jar ... " />
+    <echo message="creating ${ant.project.name}.jar ... "/>
     <copy todir="${plugin.build.dir}">
       <fileset dir="${maven.target.dir}/classes"/>
     </copy>
     <jar destfile="${plugin.jar}" basedir="${plugin.build.dir}">
       <manifest>
-        <attribute name="Author" value="Gertjan Idema &lt;mail@gertjanidema.nl&gt;"/>
+        <attribute name="Author" value="Gertjan Idema, Sander H"/>
         <attribute name="Plugin-Class" value="${plugin.class}"/>
         <attribute name="Plugin-Date" value="${plugin.date}"/>
         <attribute name="Plugin-Description" value="Import buildings and addresses in The Netherlands from the BAG WFS"/>
@@ -71,8 +67,8 @@
     **********************************************************
     -->
   <target name="clean">
-    <delete dir="${plugin.build.dir}" />
-    <delete file="${plugin.jar}" />
+    <delete dir="${plugin.build.dir}"/>
+    <delete file="${plugin.jar}"/>
   </target>
   <!--
     **********************************************************
@@ -80,16 +76,14 @@
     **********************************************************
     -->
   <target name="install" depends="dist">
-    <property environment="env" />
+    <property environment="env"/>
     <condition property="josm.plugins.dir" value="${env.APPDATA}/JOSM/plugins" else="${user.home}/.josm/plugins">
       <and>
-        <os family="windows" />
+        <os family="windows"/>
       </and>
     </condition>
-    <copy file="${plugin.jar}" todir="${josm.plugins.dir}" />
+    <copy file="${plugin.jar}" todir="${josm.plugins.dir}"/>
   </target>
-  
-
   <!--
    **********************************************************
    ** dist4debug - creates the debug plugin jar
@@ -97,17 +91,17 @@
    -->
   <target name="dist4debug" depends="init">
     <tstamp>
-      <format property="time" pattern="yyyy-MM-dd'T'hh:mm:ss'Z'" />
+      <format property="time" pattern="yyyy-MM-dd'T'hh:mm:ss'Z'"/>
     </tstamp>
-    <echo message="creating ${ant.project.name}.jar for debugging ... " />
+    <echo message="creating ${ant.project.name}.jar for debugging ... "/>
     <copy todir="${plugin.debug.build.dir}">
-        <fileset dir="${maven.target.dir}/classes/">
-            <filename name="./*.txt"/>
-        </fileset>
+      <fileset dir="${maven.target.dir}/classes/">
+        <filename name="./*.txt"/>
+      </fileset>
     </copy>
     <jar destfile="${plugin.debug.jar}" basedir="${plugin.debug.build.dir}">
       <manifest>
-        <attribute name="Author" value="Gertjan Idema &lt;mail@gertjanidema.nl&gt;"/>
+        <attribute name="Author" value="Gertjan Idema, Sander H"/>
         <attribute name="Plugin-Class" value="${plugin.class}"/>
         <attribute name="Plugin-Date" value="${plugin.date}"/>
         <attribute name="Plugin-Description" value="Import buildings and addresses in The Netherlands from the BAG WFS"/>
@@ -120,19 +114,18 @@
       </manifest>
     </jar>
   </target>
-
   <!--
    **********************************************************
    ** install4debug - install the debug plugin in the JOSM debug environment
    **********************************************************
    -->
-   <target name="install4debug" depends="dist4debug">
-     <property environment="env"/>
-     <condition property="josm.plugins.dir" value="${env.APPDATA}/JOSM_ECLIPSE_ODS6/plugins" else="${user.home}/.josm_eclipse_ods6/plugins">
-       <and>
-         <os family="windows"/>
-       </and>
-     </condition>
-    <copy file="${plugin.debug.jar}" todir="${josm.plugins.dir}" />
+  <target name="install4debug" depends="dist4debug">
+    <property environment="env"/>
+    <condition property="josm.plugins.dir" value="${env.APPDATA}/JOSM_ECLIPSE_ODS6/plugins" else="${user.home}/.josm_eclipse_ods6/plugins">
+      <and>
+        <os family="windows"/>
+      </and>
+    </condition>
+    <copy file="${plugin.debug.jar}" todir="${josm.plugins.dir}"/>
   </target>
 </project>
