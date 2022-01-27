@@ -94,7 +94,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         builder.setFeatureSource(featureSource);
         builder.setProperties(Arrays.asList("identificatie", "oppervlakte", "status", "gebruiksdoel",
                 "openbare_ruimte", "huisnummer", "huisletter", "toevoeging", "postcode", "woonplaats",
-                "geometrie", "pandidentificatie"));
+                "geom", "pandidentificatie"));
         builder.setUniqueKey(Arrays.asList("identificatie", "pandidentificatie"));
         builder.setPageSize(500);
         //      Query query = new GroupByQuery(featureSource, properties, );
@@ -111,7 +111,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         GtDatasourceBuilder builder = new GtDatasourceBuilder();
         builder.setFeatureSource(featureSource);
         builder.setProperties(Arrays.asList("identificatie", "bouwjaar", "status", "aantal_verblijfsobjecten",
-                "geometrie"));
+                "geom"));
         builder.setUniqueKey("identificatie");
         builder.setPageSize(10);
 
@@ -130,7 +130,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         GtDatasourceBuilder builder = new GtDatasourceBuilder();
         builder.setFeatureSource(featureSource);
         builder.setProperties(Arrays.asList("identificatie", "status", "openbare_ruimte", "huisnummer",
-                "huisletter", "toevoeging", "postcode", "woonplaats", "geometrie"));
+                "huisletter", "toevoeging", "postcode", "woonplaats", "geom"));
         builder.setUniqueKey("identificatie");
         builder.setPageSize(500);
 
@@ -149,7 +149,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         GtDatasourceBuilder builder = new GtDatasourceBuilder();
         builder.setFeatureSource(featureSource);
         builder.setProperties(Arrays.asList("identificatie", "status", "openbare_ruimte", "huisnummer",
-                "huisletter", "toevoeging", "postcode", "woonplaats", "geometrie"));
+                "huisletter", "toevoeging", "postcode", "woonplaats", "geom"));
         builder.setUniqueKey("identificatie");
         builder.setPageSize(500);
 
