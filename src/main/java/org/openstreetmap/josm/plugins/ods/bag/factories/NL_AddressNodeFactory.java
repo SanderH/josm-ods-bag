@@ -50,7 +50,7 @@ public class NL_AddressNodeFactory extends ModifiableGtEntityFactory<OdAddressNo
         addressNode.setAddress(address);
         addressNode.setStatus(parseStatus(FeatureUtil.getString(feature, "status")));
         addressNode.setGebruiksdoel(FeatureUtil.getString(feature, "gebruiksdoel"));
-        addressNode.setArea(FeatureUtil.getBigInteger(feature, "oppervlakte").doubleValue());
+        addressNode.setArea(FeatureUtil.getLong(feature, "oppervlakte").doubleValue());
         addressNode.setBuildingRef(FeatureUtil.getString(feature, "pandidentificatie"));
         return addressNode;
     }
