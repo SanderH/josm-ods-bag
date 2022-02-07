@@ -33,7 +33,7 @@
     <mkdir dir="${plugin.build.dir}"/>
     <mkdir dir="${plugin.debug.build.dir}"/>
     <artifact:dependencies filesetId="dependency.fileset">
-      <dependency groupId="org.jdom" artifactId="jdom2" version="2.0.4"/>
+      <dependency groupId="org.jdom" artifactId="jdom2" version="2.0.6.1"/>
     </artifact:dependencies>
   </target>
   <!--
