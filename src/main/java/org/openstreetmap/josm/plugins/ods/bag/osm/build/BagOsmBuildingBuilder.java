@@ -25,7 +25,7 @@ public class BagOsmBuildingBuilder extends AbstractOsmEntityBuilder<OsmBuilding>
 
     @Override
     public boolean canHandle(OsmPrimitive primitive) {
-        return OsmBuilding.IsBuilding(primitive);
+        return OsmBuilding.IsBuilding(primitive) || OsmBuilding.IsStaticCaravan(primitive) || OsmBuilding.IsMooring(primitive);
     }
 
     @Override
@@ -55,6 +55,10 @@ public class BagOsmBuildingBuilder extends AbstractOsmEntityBuilder<OsmBuilding>
         String type = tags.remove(BagUtils.BUILDING);
         if (type == null) {
             type = tags.remove(BagUtils.BUILDING_PART);
+        }
+        if (type == null) {
+            // no building, no building:part. There are tags with no:building, landuse and mooring that we probably need to ignore.
+            return;
         }
         if (type.equals(BagUtils.CONSTRUCTION)) {
             building.setStatus(EntityStatus.CONSTRUCTION);
