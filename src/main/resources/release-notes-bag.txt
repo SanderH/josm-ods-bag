@@ -1,5 +1,26 @@
 See also the release notes for the opendataservices plug-in.
 
+Version 0.6.20
+==============
+- Fixed incompatibility with jts plugin 1.18.2
+- Use bag.tools4osm.nl for latest version check
+- Build ODS layer with 16-character BAG id instead of numeric
+- Update WFS location to https://service.pdok.nl/lv/bag/wfs/v2_0
+- Use with Geotools 26.2
+- Rename WFS fields geometry naar geom
+
+Version 0.6.19c
+==============
+Parse huisnummer as Integer instead of String
+
+Version 0.6.19b
+==============
+Don't disregard proposed buildings in ODS layer
+
+Version 0.6.19a
+==============
+No-changes ODS-BAG
+
 Version 0.6.19
 ==============
 - Built with Josm 15628
