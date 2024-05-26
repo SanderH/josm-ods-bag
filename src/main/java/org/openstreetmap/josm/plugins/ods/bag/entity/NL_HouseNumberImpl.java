@@ -170,7 +170,7 @@ public class NL_HouseNumberImpl implements NL_HouseNumber {
     
     @Override
     public int hashCode() {
-        return Objects.hash(houseNumber, houseNumberPrefix, houseLetter, houseNumberExtra);
+        return Objects.hash(houseNumber, houseNumberPrefix, houseLetter == null ? null : Character.toUpperCase(houseLetter), houseNumberExtra);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class NL_HouseNumberImpl implements NL_HouseNumber {
         if (!(obj instanceof NL_HouseNumber)) return false;
         NL_HouseNumber hnr = (NL_HouseNumber) obj;
         return Objects.equals(houseNumber, hnr.getHouseNumber())
-                && Objects.equals(houseLetter, hnr.getHouseLetter())
+                && Objects.equals(houseLetter == null ? null : Character.toUpperCase(houseLetter), hnr.getHouseLetter() == null ? null : Character.toUpperCase(hnr.getHouseLetter()))
                 && Objects.equals(houseNumberExtra, hnr.getHouseNumberExtra())
                 && Objects.equals(houseNumberPrefix, hnr.getHouseNumberPrefix());
     }
