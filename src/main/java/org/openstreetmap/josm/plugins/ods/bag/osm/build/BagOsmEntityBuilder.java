@@ -3,6 +3,7 @@ package org.openstreetmap.josm.plugins.ods.bag.osm.build;
 import java.util.Map;
 
 import org.openstreetmap.josm.data.osm.OsmPrimitive;
+import org.openstreetmap.josm.plugins.ods.bag.BagUtils;
 import org.openstreetmap.josm.plugins.ods.entities.OsmEntity;
 
 public abstract class BagOsmEntityBuilder {
@@ -31,42 +32,6 @@ public abstract class BagOsmEntityBuilder {
                 }
             }
         }
-        primitive.remove("bag:status");
-        primitive.remove("bag:begindatum");
-        normalizeReference(primitive, "ref:bag");
-        normalizeReference(primitive, "ref:bagid");
-        normalizeReference(primitive, "bag:id");
-        normalizeReference(primitive, "bag:pand_id");
-        normalizeReference(primitive, "ref:vbo_id");
-        normalizeBagExtract(primitive);
-    }
-
-    private static void normalizeReference(OsmPrimitive primitive, String key) {
-        String value = primitive.get(key);
-        if (value == null) return;
-        primitive.remove(key);
-        if (value.length() == 0) return;
-        try {
-            Long reference = Long.parseLong(value);
-            primitive.put("ref:bag", reference.toString());
-        }
-        catch (NumberFormatException e) {
-            return;
-        }
-    }
-
-    private static void normalizeBagExtract(OsmPrimitive primitive) {
-        String value = primitive.get("bag:extract");
-        if (value == null) return;
-        primitive.remove("bag:extract");
-        if (value.startsWith("9999PND") ||
-                value.startsWith("9999LIG") || value.startsWith("9999STA")) {
-            StringBuilder sb = new StringBuilder(10);
-            sb.append(value.substring(11, 15)).append("-")
-            .append(value.substring(9, 11)).append("-")
-            .append(value.substring(7, 9));
-            primitive.put("source:date", sb.toString());
-        }
     }
 
     public static void parseKeys(OsmEntity entity, Map<String, String> tags) {
@@ -78,12 +43,8 @@ public abstract class BagOsmEntityBuilder {
         }
     }
 
-    private static Long getReferenceId(String s) {
+    private static String getReferenceId(String s) {
         if (s == null || s.length() == 0) return null;
-        int i=0;
-        while (i<s.length() && Character.isDigit(s.charAt(i))) {
-            i++;
-        }
-        return Long.valueOf(s.substring(0, i));
+        return BagUtils.normalizeRefBag(s);
     }
 }

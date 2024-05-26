@@ -7,6 +7,7 @@ import org.openstreetmap.josm.data.osm.OsmPrimitiveType;
 import org.openstreetmap.josm.data.osm.Relation;
 import org.openstreetmap.josm.data.osm.Way;
 import org.openstreetmap.josm.plugins.ods.OdsModule;
+import org.openstreetmap.josm.plugins.ods.bag.BagUtils;
 import org.openstreetmap.josm.plugins.ods.bag.entity.BagOsmAddress;
 import org.openstreetmap.josm.plugins.ods.domains.buildings.BuildingType;
 import org.openstreetmap.josm.plugins.ods.domains.buildings.OsmBuilding;
@@ -24,7 +25,7 @@ public class BagOsmBuildingBuilder extends AbstractOsmEntityBuilder<OsmBuilding>
 
     @Override
     public boolean canHandle(OsmPrimitive primitive) {
-        return OsmBuilding.IsBuilding(primitive);
+        return OsmBuilding.IsBuilding(primitive) || OsmBuilding.IsStaticCaravan(primitive) || OsmBuilding.IsMooring(primitive);
     }
 
     @Override
@@ -47,29 +48,28 @@ public class BagOsmBuildingBuilder extends AbstractOsmEntityBuilder<OsmBuilding>
 
     public static void normalizeTags(OsmPrimitive primitive) {
         BagOsmEntityBuilder.normalizeTags(primitive);
-        String bouwjaar = primitive.get("bag:bouwjaar");
-        if (bouwjaar != null) {
-            primitive.put("start_date", bouwjaar);
-            primitive.remove("bag:bouwjaar");
-        }
     }
 
     private static void parseKeys(BaseOsmBuilding building, Map<String, String> tags) {
         BagOsmEntityBuilder.parseKeys(building, tags);
-        String type = tags.remove("building");
+        String type = tags.remove(BagUtils.BUILDING);
         if (type == null) {
-            type = tags.remove("building:part");
+            type = tags.remove(BagUtils.BUILDING_PART);
         }
-        if (type.equals("construction")) {
+        if (type == null) {
+            // no building, no building:part. There are tags with no:building, landuse and mooring that we probably need to ignore.
+            return;
+        }
+        if (type.equals(BagUtils.CONSTRUCTION)) {
             building.setStatus(EntityStatus.CONSTRUCTION);
-            String construction = tags.remove("construction");
-            type = (construction == null ? "yes" : construction);
+            String construction = tags.remove(BagUtils.CONSTRUCTION);
+            type = (construction == null ? BagUtils.YES : construction);
         }
         else {
             building.setStatus(EntityStatus.IN_USE);
         }
         building.setBuildingType(getBuildingType(type, tags));
-        building.setStartDate(tags.remove("start_date"));
+        building.setStartDate(tags.remove(BagUtils.START_DATE));
         if (tags.containsKey("addr:housenumber")) {
             BagOsmAddress address = new BagOsmAddress();
             BagOsmAddressEntityBuilder.parseKeys(address, tags);
