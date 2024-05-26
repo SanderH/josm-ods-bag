@@ -67,6 +67,8 @@ public class BagPandFactory extends ModifiableGtEntityFactory<OdBuilding> {
             return EntityStatus.REMOVAL_DUE;
         case "Pand gesloopt":
             return EntityStatus.REMOVED;
+        case "Verbouwing pand":
+            return EntityStatus.RECONSTRUCTION;
         default:
             return EntityStatus.UNKNOWN;
         }

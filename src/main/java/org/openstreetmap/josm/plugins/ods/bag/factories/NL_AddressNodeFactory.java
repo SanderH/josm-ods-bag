@@ -66,6 +66,8 @@ public class NL_AddressNodeFactory extends ModifiableGtEntityFactory<OdAddressNo
         case "Verblijfsobject ingetrokken":
         case "Niet gerealiseerd verblijfsobject":
             return EntityStatus.REMOVED;
+        case "Verbouwing verblijfsobject":
+            return EntityStatus.RECONSTRUCTION;
         default:
             return EntityStatus.IN_USE;
         }
