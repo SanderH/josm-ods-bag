@@ -17,10 +17,11 @@ public class BagBuildingEntityPrimitiveBuilder extends BagEntityPrimitiveBuilder
     public void createPrimitive(OdBuilding building) {
         // Ignore buildings with status "Bouwvergunning verleend"
         // Make an exception for buildings that already exist in OSM. In that case, the building permit is for reconstruction
-        if (building.getStatus() == EntityStatus.PLANNED
-                && building.getMatch() == null) {
-            return;
-        }
+        // Don't skip as municipalities often are behind in administration and reports from  the field indicate building has started or even completed!
+        //if (building.getStatus() == EntityStatus.PLANNED
+        //        && building.getMatch() == null) {
+        //    return;
+        //}
         super.createPrimitive(building);
     }
 
