@@ -36,6 +36,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
     private static final String DEFAULT_MY_WFS_URL = "https://bag.tools4osm.nl/geoserver/bag/ows";
     private static final Integer DEFAULT_WFS_INIT_TIMEOUT = 1000;
     private static final Integer DEFAULT_WFS_DATA_TIMEOUT = 10000;
+    private static final Integer DEFAULT_WFS_PAGE_SIZE = 500;
 
     private final WFSHost wfsHost;
     private final WFSHost wfsMyHost;
@@ -121,7 +122,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
                 "openbare_ruimte", "huisnummer", "huisletter", "toevoeging", "postcode", "woonplaats",
                 "geom", "pandidentificatie"));
         builder.setUniqueKey(Arrays.asList("identificatie", "pandidentificatie"));
-        builder.setPageSize(500);
+        builder.setPageSize(getWfsPageSize());
         //      Query query = new GroupByQuery(featureSource, properties, );
         GtDataSource dataSource = builder.build();
         GtEntityFactory<OdAddressNode> entityBuilder = GtEntityFactoryFactory.create(
@@ -140,7 +141,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
                 "openbare_ruimte", "huisnummer", "huisletter", "toevoeging", "postcode", "woonplaats",
                 "geom", "pandidentificatie"));
         builder.setUniqueKey(Arrays.asList("identificatie", "pandidentificatie"));
-        builder.setPageSize(500);
+        builder.setPageSize(getWfsPageSize());
         //      Query query = new GroupByQuery(featureSource, properties, );
         GtDataSource dataSource = builder.build();
         GtEntityFactory<OdAddressNode> entityBuilder = GtEntityFactoryFactory.create(
@@ -157,7 +158,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         builder.setProperties(Arrays.asList("identificatie", "bouwjaar", "status", "aantal_verblijfsobjecten",
                 "geom"));
         builder.setUniqueKey("identificatie");
-        builder.setPageSize(500);
+        builder.setPageSize(getWfsPageSize());
 
         //       Query query = new GroupByQuery(featureSource, properties, Arrays.asList("identificatie"));
         GtDataSource dataSource = builder.build();
@@ -176,7 +177,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         builder.setProperties(Arrays.asList("identificatie", "status", "openbare_ruimte", "huisnummer",
                 "huisletter", "toevoeging", "postcode", "woonplaats", "geom"));
         builder.setUniqueKey("identificatie");
-        builder.setPageSize(500);
+        builder.setPageSize(getWfsPageSize());
 
         //       Query query = new GroupByQuery(featureSource, properties, Arrays.asList("identificatie"));
         GtDataSource dataSource = builder.build();
@@ -195,7 +196,7 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
         builder.setProperties(Arrays.asList("identificatie", "status", "openbare_ruimte", "huisnummer",
                 "huisletter", "toevoeging", "postcode", "woonplaats", "geom"));
         builder.setUniqueKey("identificatie");
-        builder.setPageSize(500);
+        builder.setPageSize(getWfsPageSize());
 
         //       Query query = new GroupByQuery(featureSource, properties, Arrays.asList("identificatie"));
         GtDataSource dataSource = builder.build();
@@ -261,5 +262,12 @@ public class BagWfsLayerDownloader extends OpenDataLayerDownloader {
           return BagProperties.WFS_DATA_TIMEOUT.get();
         }
         return DEFAULT_WFS_DATA_TIMEOUT;
+    }
+
+    private static Integer getWfsPageSize() {
+        if (BagProperties.WFS_PAGE_SIZE.isSet()) {
+          return BagProperties.WFS_PAGE_SIZE.get();
+        }
+        return DEFAULT_WFS_PAGE_SIZE;
     }
 }
