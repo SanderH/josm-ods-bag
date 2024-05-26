@@ -44,7 +44,7 @@ public class NL_GenericAddressFactory extends ModifiableGtEntityFactory<NL_Addre
     }
     
     private NL_HouseNumber createHouseNumber(SimpleFeature feature) {
-        Integer number = Integer.valueOf(FeatureUtil.getString(feature, "huisnummer"));
+        Integer number = FeatureUtil.getInteger(feature, "huisnummer");
         Character houseLetter = FeatureUtil.getCharacter(feature, "huisletter");
         String houseNumberExtra = FeatureUtil.getString(feature, "toevoeging");
         return new NL_HouseNumberImpl(null, number, houseLetter, houseNumberExtra);

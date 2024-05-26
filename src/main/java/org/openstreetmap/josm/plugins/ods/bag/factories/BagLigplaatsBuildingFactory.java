@@ -44,7 +44,7 @@ public class BagLigplaatsBuildingFactory extends ModifiableGtEntityFactory<OdBui
             building.setSourceDate(DateTimeFormatter.ISO_LOCAL_DATE.format(date));
         }
         String id = FeatureUtil.getString(feature, "identificatie");
-        building.setReferenceId(Long.valueOf(id));
+        building.setReferenceId(id);
         building.setPrimaryId(feature.getID());
 //        LocalDate date = response.getRequest().getDownloadTime().toLocalDate();
 //        if (date != null) {

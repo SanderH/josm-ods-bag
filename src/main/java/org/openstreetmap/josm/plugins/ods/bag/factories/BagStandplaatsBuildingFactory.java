@@ -44,7 +44,7 @@ public class BagStandplaatsBuildingFactory extends ModifiableGtEntityFactory<OdB
             building.setSourceDate(DateTimeFormatter.ISO_LOCAL_DATE.format(date));
         }
         String id = FeatureUtil.getString(feature, "identificatie");
-        building.setReferenceId(Long.valueOf(id));
+        building.setReferenceId(id);
         building.setPrimaryId(feature.getID());
         building.setSource("BAG");
         building.setStatus(parseStatus(FeatureUtil.getString(feature, "status")));

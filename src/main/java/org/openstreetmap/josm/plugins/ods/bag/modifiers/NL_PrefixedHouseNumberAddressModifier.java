@@ -190,7 +190,7 @@ public class NL_PrefixedHouseNumberAddressModifier implements EntityModifier<NL_
                 // Recreatiepark Oosterduinen in Norg.
                 // Alle adressen hebben Oosterduinen (het terrein) als 'straatnaam'. Paden tussen de huisjes hebben
                 // eigen namen die niet in de adressen terugkeren.
-                // Zie ook: http://oosterduinen.nl/
+                // Zie ook: https://oosterduinen.nl/
                 "9331WB",
                 "9331WC",
                 "9331WD",

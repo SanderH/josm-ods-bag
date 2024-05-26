@@ -38,7 +38,7 @@ public class BagPandFactory extends ModifiableGtEntityFactory<OdBuilding> {
             building.setSourceDate(DateTimeFormatter.ISO_LOCAL_DATE.format(date));
         }
         String id = FeatureUtil.getString(feature, "identificatie");
-        building.setReferenceId(Long.valueOf(id));
+        building.setReferenceId(id);
         building.setPrimaryId(feature.getID());
         building.setSource("BAG");
         Integer bouwjaar = FeatureUtil.getInteger(feature, "bouwjaar");

@@ -42,7 +42,7 @@ public class NL_AddressNodeFactory extends ModifiableGtEntityFactory<OdAddressNo
             addressNode.setSourceDate(DateTimeFormatter.ISO_LOCAL_DATE.format(date));
         }
         String id = FeatureUtil.getString(feature, "identificatie");
-        addressNode.setReferenceId(Long.valueOf(id));
+        addressNode.setReferenceId(id);
         addressNode.setPrimaryId(feature.getID());
         addressNode.setSource("BAG");
         addressNode.setGeometry(geometryFactory.create(feature, response));
@@ -50,8 +50,8 @@ public class NL_AddressNodeFactory extends ModifiableGtEntityFactory<OdAddressNo
         addressNode.setAddress(address);
         addressNode.setStatus(parseStatus(FeatureUtil.getString(feature, "status")));
         addressNode.setGebruiksdoel(FeatureUtil.getString(feature, "gebruiksdoel"));
-        addressNode.setArea(FeatureUtil.getBigInteger(feature, "oppervlakte").doubleValue());
-        addressNode.setBuildingRef(Long.valueOf(FeatureUtil.getString(feature, "pandidentificatie")));
+        addressNode.setArea(FeatureUtil.getLong(feature, "oppervlakte").doubleValue());
+        addressNode.setBuildingRef(FeatureUtil.getString(feature, "pandidentificatie"));
         return addressNode;
     }
 
