@@ -170,7 +170,7 @@ public class NL_HouseNumberImpl implements NL_HouseNumber {
     
     @Override
     public int hashCode() {
-        return Objects.hash(houseNumber, houseNumberPrefix, houseLetter == null ? null : Character.toUpperCase(houseLetter), houseNumberExtra);
+        return Objects.hash(houseNumber, houseNumberPrefix, houseLetter == null ? "" : Character.toUpperCase(houseLetter), houseNumberExtra);
     }
 
     @Override
