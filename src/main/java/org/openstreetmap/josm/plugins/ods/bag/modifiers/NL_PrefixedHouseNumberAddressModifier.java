@@ -79,27 +79,6 @@ public class NL_PrefixedHouseNumberAddressModifier implements EntityModifier<NL_
                 "3947BK",
 
 
-                // Graafjansdijk, Westdorpe (Terneuzen). Voorloopletter (A of B) staat op de
-                // huisnummerbordjes.
-                "4554AE",
-                "4554AG",
-                "4554AH",
-                "4554AJ",
-                "4554AK",
-                "4554AL",
-                "4554AM",
-                "4554CA",
-                "4554CB",
-                "4554CC",
-                "4554CD",
-                "4554LA",
-                "4554LB",
-                "4554LC",
-                "4554LD",
-                "4554LE",
-                "4554LG",
-
-
                 // Deken van Erpstraat en Meierij, Sint-Oedenrode. Flats uit 2007 in bestaande straten.
                 // Voorloopletters zijn gebruikt om adresruimte te creëren in
                 "5492DE",
@@ -219,6 +198,11 @@ public class NL_PrefixedHouseNumberAddressModifier implements EntityModifier<NL_
                 Zijkanaal C, Spaarndam. Vernoemd naar naastgelegen kanaal dat zo heet.
             5521E*
                 Lindehof N, M, B, Z in Eersel. Letter hoort bij straatnaam.
+            4554AE, 4554AG, 4554AH, 4554AJ, 4554AK, 4554AL, 4554AM, 4554CA, 4554CB,
+            4554CC, 4554CD, 4554LA, 4554LB,4554LC, 4554LD, 4554LE, 4554LG,
+                Graafjansdijk A, B in Westdorpe (Terneuzen). Alhoewel verreweg de meeste bewoners de letter  
+                ook op de huisnummerbordjes hebben staan, is dat niet bij allemaal het geval en is het  
+                volgens de gemeente aan de bewoners zelf wat ze op hun bordjes zetten.
             6225CH
                 In de O, Maastricht. Straat heet gewoon zo.
             7739PX
