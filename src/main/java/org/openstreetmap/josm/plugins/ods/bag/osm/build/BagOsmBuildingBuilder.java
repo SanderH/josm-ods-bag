@@ -25,7 +25,7 @@ public class BagOsmBuildingBuilder extends AbstractOsmEntityBuilder<OsmBuilding>
 
     @Override
     public boolean canHandle(OsmPrimitive primitive) {
-        return OsmBuilding.IsBuilding(primitive) || OsmBuilding.IsStaticCaravan(primitive) || OsmBuilding.IsMooring(primitive);
+        return OsmBuilding.IsBuilding(primitive) || OsmBuilding.IsStaticCaravan(primitive) || OsmBuilding.IsMooring(primitive) || OsmBuilding.IsParking(primitive);
     }
 
     @Override
